@@ -1,0 +1,75 @@
+📂 BangunRuang
+ ┣ 📂 bangunruang
+ ┃ ┣ 📜 BangunRuang.java (Abstract class)
+ ┃ ┣ 📜 Menghitung.java (Interface)
+ ┃ ┗ 📜 Kubus.java (Subclass)
+ ┣ 📂 main
+ ┃ ┗ 📜 Main.java (Class utama)
+package bangunruang;
+
+public abstract class BangunRuang {
+    protected String nama;
+
+    public BangunRuang(String nama) {
+        this.nama = nama;
+    }
+
+    // Abstract method (harus diimplementasikan di subclass)
+    public abstract double hitungVolume();
+
+    // Overriding dari Object
+    @Override
+    public String toString() {
+        return "Bangun Ruang: " + nama;
+    }
+}
+package bangunruang;
+
+public interface Menghitung {
+    double hitungLuasPermukaan();
+}
+package bangunruang;
+
+public class Kubus extends BangunRuang implements Menghitung {
+    private double sisi;
+
+    public Kubus(double sisi) {
+        super("Kubus");
+        this.sisi = sisi;
+    }
+
+    // Implementasi abstract method dari BangunRuang
+    @Override
+    public double hitungVolume() {
+        return sisi * sisi * sisi;
+    }
+
+    // Implementasi interface Menghitung
+    @Override
+    public double hitungLuasPermukaan() {
+        return 6 * sisi * sisi;
+    }
+
+    // Overloading: dua metode hitungVolume dengan parameter berbeda
+    public double hitungVolume(double skala) {
+        return (sisi * skala) * (sisi * skala) * (sisi * skala);
+    }
+}
+package main;
+
+import bangunruang.Kubus;
+
+public class Main {
+    public static void main(String[] args) {
+        Kubus kubus = new Kubus(5);
+
+        System.out.println(kubus);
+        System.out.println("Volume Kubus: " + kubus.hitungVolume());
+        System.out.println("Luas Permukaan Kubus: " + kubus.hitungLuasPermukaan());
+        System.out.println("Volume Kubus (skala 2x): " + kubus.hitungVolume(2));
+    }
+}
+Bangun Ruang: Kubus
+Volume Kubus: 125.0
+Luas Permukaan Kubus: 150.0
+Volume Kubus (skala 2x): 1000.0
